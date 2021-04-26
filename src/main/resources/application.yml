@@ -1,0 +1,6 @@
+
+# tomcat服务器配置
+server:
+  port: 7999
+  servlet:
+    context-path: /

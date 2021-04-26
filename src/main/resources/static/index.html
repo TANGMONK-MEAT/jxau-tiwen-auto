@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Login</title>
+</head>
+
+<body>
+<div id="app">
+
+    <img src="images/bg.png" alt class="wave">
+    <div class="container">
+        <div class="img">
+            <img src="images/img-3.svg" alt>
+        </div>
+        <div class="login-box">
+            <form>
+                <img src="images/avatar.svg" alt class="avatar">
+                <h2>自动打卡</h2>
+                <div class="input-group">
+                    <div class="icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div>
+                        <input type="text" class="input" id="account" name="account" v-model="account" placeholder="Account" v-on:blur="verifyAccount">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="icon">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <div>
+                        <input autocomplete type="password" class="input" id="password" name="password" v-model="password" placeholder="Password" v-on:blur="verifyPassword">
+                    </div>
+                </div>
+
+                <!-- <a href="#" @click="pwd()">Forgot Password?</a> -->
+                <input type="button" @click="checkAccount()" class="btn" value="Login">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<a href="https://www.baidu.com" target="_blank" class="copyright">&copy; 唐僧肉</a>
+<script src="js/app.js" type="text/javascript"></script>
+<!-- import Vue before Element -->
+<script src="js/vue.js"></script>
+<!-- import JavaScript -->
+<script src="js/index.js"></script>
+<!-- import Axios -->
+<script src="js/axios.min.js"></script>
+
+<script>
+    const vue = new Vue({
+        el: '#app',
+        data: {
+            account: '',
+            password: '',
+        },
+        created() {
+            this.support()
+        },
+        methods: {
+            verifyAccount() {
+                console.log(this.account.length)
+                if (this.account.length != 8) {
+                    this.$message({
+                        type: 'info',
+                        message: '检测到学号填写错误！请填写8位学号！'
+                    });
+                }
+            },
+            verifyPassword() {
+                console.log(this.password.length)
+                if (this.password.length == 0) {
+                    this.$message({
+                        type: 'info',
+                        message: '密码长度不能为0！'
+                    });
+                }
+            },
+            async checkAccount() {
+                if (!this.account || !this.password || this.account.length != 8) {
+                    alert("用户名或密码不符合格式！");
+                    return;
+                }
+
+                var msg = ''
+                var success = false
+                var username = null
+                let params = new FormData()
+
+                params.append('account', this.account)
+                params.append('password', this.password)
+
+                await axios.post('http://127.0.0.1:7999/user/login', params, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }).then(function (response) {
+                    msg = response.data.msg;
+                    if(response.data.code == 200){
+                    	success = true;
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+                console.log(msg)
+                console.log(success)
+                setTimeout(this.open(msg, success, username), 1000)
+            },
+            open(msg, success, username) {
+                this.$alert('<h1>' + msg + '</h1>', 'Tip', {
+                    confirmButtonText: '确定',
+                    dangerouslyUseHTMLString: true,
+                    callback: action => {
+                        if (success == true) {
+                            this.$message({
+                                type: 'success',
+                                message: '打卡成功!'
+                            });
+                        } else {
+                            this.$message({
+                                type: 'error',
+                                message: '打卡失败!'
+                            });
+                        }
+
+                    }
+                });
+            },
+            pwd() {
+                this.$message({
+                    type: 'info',
+                    message: '默认密码为身份证后6位,学号不需要60!'
+                });
+            },
+            support() {
+                this.$notify({
+                    title: '扫码请作者喝瓶水',
+                    type: 'success',
+                    dangerouslyUseHTMLString: true,
+                    showClose: true,
+                    message: '<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2950371251&site=qq&menu=yes">一个感情丰富的杀手<img border="0" src="http://wpa.qq.com/pa?p=2:2950371251:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>'+
+                            '<br> <img src="images/2.png" width="150px" height="135px"   alt="">',
+                    duration: 0
+                });
+            }
+
+        },
+    })
+
+</script>
+</body>
+
+</html>
