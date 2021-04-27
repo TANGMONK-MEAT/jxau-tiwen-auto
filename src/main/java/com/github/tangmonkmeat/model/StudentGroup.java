@@ -1,6 +1,7 @@
 package com.github.tangmonkmeat.model;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class StudentGroup {
 	
@@ -27,5 +28,11 @@ public class StudentGroup {
 	@Override
 	public String toString() {
 		return "StudentGroup [name=" + name + ", students=" + students + "]";
+	}
+
+	public StudentGroup(String name, List<Student> students) {
+		super();
+		this.name = name;
+		this.students = students;
 	}
 }

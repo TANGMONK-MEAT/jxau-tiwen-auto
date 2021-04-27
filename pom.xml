@@ -45,8 +45,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+                    <mainClass>com.github.tangmonkmeat.JxauTiwenAutoApplication</mainClass>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

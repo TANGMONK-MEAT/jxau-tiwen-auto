@@ -1,36 +1,46 @@
 #### 介绍
-某某农业大学的体温登记程序
+某某农业大学的某某大学工小程序的体温登记程序
 
 #### 软件架构
-软件架构说明
+> JDK 1.8
 
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+* springboot
+* fastJson
+* httpclient（apache）
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. 下载: [jxau-tiwen-auto-bin.tar.xz](https://gitee.com/TANGMONK-MEAT/jxau-tiwen-auto/attach_files/687569/download/jxau-tiwen-auto-bin.tar.xz)
+2. 解压
+3. 运行：`java -jar jxau-tiwen-auto-0.0.1-SNAPSHOT.jar.jar`
+4. 浏览器访问：[http://127.0.0.1:7999](http://127.0.0.1:7999)
 
-#### 参与贡献
+####
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+如果需要修改相关配置，解压 jar 包，修改 `BOOT-INF/class/system.properties` 即可
 
+```properties
+# 定时登记配置
 
-#### 特技
+# 时
+hourOfDay=8
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+# 分
+minute=29
+
+# 秒
+second=0
+
+# 间隔（默认每天一次）
+period=24
+
+# 登记失败的重试次数
+retry=10
+
+# 瞄提醒码
+m=tnDqznH
+
+# https://wlz.dev.yunwucm.com/
+domainName=https://jxnydxxgcprod.zxhnzq.com/
+```
 

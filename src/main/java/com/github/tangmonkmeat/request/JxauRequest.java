@@ -533,6 +533,10 @@ public class JxauRequest {
 	 * @return
 	 */
 	public static String getPath() {
+		if(System.getProperty("base.dir") != null) {
+			return System.getProperty("base.dir") + "/students.json";
+		}
+		
 		java.net.URL url = JxauRequest.class.getProtectionDomain().getCodeSource().getLocation();
 		String path = null;
 		try {
@@ -540,9 +544,16 @@ public class JxauRequest {
 		} catch (Exception e) {
 			logger.error("", e);
 		}
-		int lastIndex = path.lastIndexOf("/") + 1;
-		path = path.substring(0, lastIndex);
-		return path + "students.json";
+		int startIndex = path.indexOf(":") + 1;
+		int jarIndex = path.indexOf(".jar") + 1;
+		path = path.substring(0, jarIndex);
+		int lastIndex = path.lastIndexOf(File.separator) + 1;
+		if(jarIndex == 0) {
+			lastIndex = path.lastIndexOf(File.separator) + 1;
+		}
+		path = path.substring(startIndex == -1 ? 0 : startIndex, lastIndex)+ "students.json";
+		logger.info("config path: {}", path);
+		return path;
 	}
 
 //	public static void main(String[] args) {

@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public class UserInfoConfig implements Serializable {
                 file.createNewFile();
             }
         } catch (Exception e) {
-           logger.error("",e);
+           logger.error("CONFIG_FILE: {}",CONFIG_FILE, e);
         }
     }
 	
@@ -98,7 +99,7 @@ public class UserInfoConfig implements Serializable {
         
         users = JSON.parseObject(configJson, StudentGroup.class);
         if(users == null) {
-        	users = new StudentGroup();
+        	users = new StudentGroup("students",new CopyOnWriteArrayList<Student>());
         }
         
         // 更新配置文件
