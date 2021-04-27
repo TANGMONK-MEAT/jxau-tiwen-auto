@@ -408,8 +408,8 @@ public class JxauRequest {
 			return;
 		}
 		// 预先执行一遍
-		exec(path);
-		miaotixing();
+//		exec(path);
+//		miaotixing();
 		// 指定的任务
 		TimerTask timerTask = new TimerTask() {
 			@Override
